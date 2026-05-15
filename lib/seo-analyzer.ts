@@ -197,7 +197,7 @@ export async function analyzeSEO(url: string): Promise<SEOReport> {
 
   // H1 tags
   const h1Tags: string[] = [];
-  const h1Regex = /<h1[^>]*>(.*?)<\/h1>/gis;
+  const h1Regex = /<h1[^>]*>([\s\S]*?)<\/h1>/gi;
   let h1Match: RegExpExecArray | null;
   while ((h1Match = h1Regex.exec(html)) !== null) {
     h1Tags.push(h1Match[1].replace(/<[^>]+>/g, "").trim());
