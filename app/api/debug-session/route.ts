@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 export async function GET() {
   const session = await auth();
-  const cookieStore = await cookies();
+  const cookieStore = cookies();
   const allCookies = cookieStore.getAll().map((c) => c.name);
 
   return NextResponse.json({
