@@ -196,10 +196,12 @@ export async function analyzeSEO(url: string): Promise<SEOReport> {
   const metaDesc = getMetaContent("description");
 
   // H1 tags
-  const h1Matches = [...html.matchAll(/<h1[^>]*>(.*?)<\/h1>/gis)];
-  const h1Tags = h1Matches.map((m) =>
-    m[1].replace(/<[^>]+>/g, "").trim()
-  );
+  const h1Tags: string[] = [];
+  const h1Regex = /<h1[^>]*>(.*?)<\/h1>/gis;
+  let h1Match: RegExpExecArray | null;
+  while ((h1Match = h1Regex.exec(html)) !== null) {
+    h1Tags.push(h1Match[1].replace(/<[^>]+>/g, "").trim());
+  }
 
   // Canonical
   const canonicalMatch = html.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i) ||
